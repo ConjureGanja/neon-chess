@@ -1,0 +1,967 @@
+/* Neon Chess Stylesheet */
+
+:root {
+  /* Blue-Pink Theme */
+  --blue-pink-primary: #00ffff;
+  --blue-pink-secondary: #ff00ff;
+  --blue-pink-background: #121212;
+  --blue-pink-board-light: #2a2a4a;
+  --blue-pink-board-dark: #1a1a2a;
+  --blue-pink-highlight: #00ffff80;
+  --blue-pink-capture: #ff00ff80;
+  --blue-pink-check: #ff0000;
+  
+  /* Green-Yellow Theme */
+  --green-yellow-primary: #00ff00;
+  --green-yellow-secondary: #ffff00;
+  --green-yellow-background: #121212;
+  --green-yellow-board-light: #2a4a2a;
+  --green-yellow-board-dark: #1a2a1a;
+  --green-yellow-highlight: #00ff0080;
+  --green-yellow-capture: #ffff0080;
+  --green-yellow-check: #ff0000;
+  
+  /* Purple-Orange Theme */
+  --purple-orange-primary: #9900ff;
+  --purple-orange-secondary: #ff6600;
+  --purple-orange-background: #121212;
+  --purple-orange-board-light: #3a2a4a;
+  --purple-orange-board-dark: #2a1a2a;
+  --purple-orange-highlight: #9900ff80;
+  --purple-orange-capture: #ff660080;
+  --purple-orange-check: #ff0000;
+}
+
+/* Main Container */
+.chess-game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Arial', sans-serif;
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  color: white;
+}
+
+/* Theme-based styling */
+.chess-game-container.theme-blue-pink {
+  background-color: var(--blue-pink-background);
+  box-shadow: 0 0 20px var(--blue-pink-primary);
+}
+
+.chess-game-container.theme-green-yellow {
+  background-color: var(--green-yellow-background);
+  box-shadow: 0 0 20px var(--green-yellow-primary);
+}
+
+.chess-game-container.theme-purple-orange {
+  background-color: var(--purple-orange-background);
+  box-shadow: 0 0 20px var(--purple-orange-primary);
+}
+
+/* Game Status */
+.game-status {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  width: 100%;
+}
+
+.theme-blue-pink .game-status {
+  background-color: rgba(0, 255, 255, 0.1);
+  border: 1px solid var(--blue-pink-primary);
+  text-shadow: 0 0 5px var(--blue-pink-primary);
+}
+
+.theme-green-yellow .game-status {
+  background-color: rgba(0, 255, 0, 0.1);
+  border: 1px solid var(--green-yellow-primary);
+  text-shadow: 0 0 5px var(--green-yellow-primary);
+}
+
+.theme-purple-orange .game-status {
+  background-color: rgba(153, 0, 255, 0.1);
+  border: 1px solid var(--purple-orange-primary);
+  text-shadow: 0 0 5px var(--purple-orange-primary);
+}
+
+/* Captured Pieces */
+.captured-pieces {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.white-captured, .black-captured {
+  flex: 1;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.theme-blue-pink .white-captured, .theme-blue-pink .black-captured {
+  background-color: rgba(0, 255, 255, 0.1);
+  border: 1px solid var(--blue-pink-primary);
+}
+
+.theme-green-yellow .white-captured, .theme-green-yellow .black-captured {
+  background-color: rgba(0, 255, 0, 0.1);
+  border: 1px solid var(--green-yellow-primary);
+}
+
+.theme-purple-orange .white-captured, .theme-purple-orange .black-captured {
+  background-color: rgba(153, 0, 255, 0.1);
+  border: 1px solid var(--purple-orange-primary);
+}
+
+.captured-pieces h3 {
+  margin-top: 0;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.captured-pieces .pieces {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.piece.captured {
+  width: 20px;
+  height: 20px;
+  font-size: 16px;
+}
+
+/* Board Container */
+.board-container {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  aspect-ratio: 1;
+  margin-bottom: 20px;
+}
+
+/* Chess Board */
+.chess-board {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.theme-blue-pink .chess-board {
+  box-shadow: 0 0 20px var(--blue-pink-primary);
+}
+
+.theme-green-yellow .chess-board {
+  box-shadow: 0 0 20px var(--green-yellow-primary);
+}
+
+.theme-purple-orange .chess-board {
+  box-shadow: 0 0 20px var(--purple-orange-primary);
+}
+
+/* Board Squares */
+.square {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  transition: all 0.2s ease;
+}
+
+/* Theme-based square colors */
+.theme-blue-pink .square.light {
+  background-color: var(--blue-pink-board-light);
+}
+
+.theme-blue-pink .square.dark {
+  background-color: var(--blue-pink-board-dark);
+}
+
+.theme-green-yellow .square.light {
+  background-color: var(--green-yellow-board-light);
+}
+
+.theme-green-yellow .square.dark {
+  background-color: var(--green-yellow-board-dark);
+}
+
+.theme-purple-orange .square.light {
+  background-color: var(--purple-orange-board-light);
+}
+
+.theme-purple-orange .square.dark {
+  background-color: var(--purple-orange-board-dark);
+}
+
+/* Square Highlights */
+.square.selected {
+  z-index: 5;
+}
+
+.theme-blue-pink .square.selected {
+  box-shadow: inset 0 0 20px var(--blue-pink-primary);
+}
+
+.theme-green-yellow .square.selected {
+  box-shadow: inset 0 0 20px var(--green-yellow-primary);
+}
+
+.theme-purple-orange .square.selected {
+  box-shadow: inset 0 0 20px var(--purple-orange-primary);
+}
+
+.square.possible-move::before {
+  content: '';
+  position: absolute;
+  width: 30%;
+  height: 30%;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.theme-blue-pink .square.possible-move::before {
+  background-color: var(--blue-pink-highlight);
+  box-shadow: 0 0 10px var(--blue-pink-primary);
+}
+
+.theme-green-yellow .square.possible-move::before {
+  background-color: var(--green-yellow-highlight);
+  box-shadow: 0 0 10px var(--green-yellow-primary);
+}
+
+.theme-purple-orange .square.possible-move::before {
+  background-color: var(--purple-orange-highlight);
+  box-shadow: 0 0 10px var(--purple-orange-primary);
+}
+
+.square.possible-capture {
+  z-index: 3;
+}
+
+.theme-blue-pink .square.possible-capture {
+  box-shadow: inset 0 0 20px var(--blue-pink-capture);
+}
+
+.theme-green-yellow .square.possible-capture {
+  box-shadow: inset 0 0 20px var(--green-yellow-capture);
+}
+
+.theme-purple-orange .square.possible-capture {
+  box-shadow: inset 0 0 20px var(--purple-orange-capture);
+}
+
+.square.check {
+  animation: check-flash 0.5s infinite alternate;
+}
+
+@keyframes check-flash {
+  from {
+    box-shadow: inset 0 0 10px var(--blue-pink-check);
+  }
+  to {
+    box-shadow: inset 0 0 30px var(--blue-pink-check);
+  }
+}
+
+/* Chess Pieces */
+.piece {
+  width: 80%;
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  z-index: 10;
+  transition: all 0.2s ease;
+  border-radius: 50%;
+}
+
+/* Theme-based piece styling */
+.theme-blue-pink .piece.white {
+  color: var(--blue-pink-primary);
+  text-shadow: 0 0 10px var(--blue-pink-primary);
+}
+
+.theme-blue-pink .piece.black {
+  color: var(--blue-pink-secondary);
+  text-shadow: 0 0 10px var(--blue-pink-secondary);
+}
+
+.theme-green-yellow .piece.white {
+  color: var(--green-yellow-primary);
+  text-shadow: 0 0 10px var(--green-yellow-primary);
+}
+
+.theme-green-yellow .piece.black {
+  color: var(--green-yellow-secondary);
+  text-shadow: 0 0 10px var(--green-yellow-secondary);
+}
+
+.theme-purple-orange .piece.white {
+  color: var(--purple-orange-primary);
+  text-shadow: 0 0 10px var(--purple-orange-primary);
+}
+
+.theme-purple-orange .piece.black {
+  color: var(--purple-orange-secondary);
+  text-shadow: 0 0 10px var(--purple-orange-secondary);
+}
+
+/* Game Controls */
+.game-controls {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.theme-blue-pink .game-controls {
+  background-color: rgba(0, 255, 255, 0.1);
+  border: 1px solid var(--blue-pink-primary);
+}
+
+.theme-green-yellow .game-controls {
+  background-color: rgba(0, 255, 0, 0.1);
+  border: 1px solid var(--green-yellow-primary);
+}
+
+.theme-purple-orange .game-controls {
+  background-color: rgba(153, 0, 255, 0.1);
+  border: 1px solid var(--purple-orange-primary);
+}
+
+.game-controls button, .game-controls select {
+  padding: 8px 15px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  transition: all 0.2s ease;
+}
+
+.theme-blue-pink .game-controls button, .theme-blue-pink .game-controls select {
+  border: 1px solid var(--blue-pink-primary);
+}
+
+.theme-blue-pink .game-controls button:hover, .theme-blue-pink .game-controls select:hover {
+  background-color: rgba(0, 255, 255, 0.3);
+  box-shadow: 0 0 10px var(--blue-pink-primary);
+}
+
+.theme-green-yellow .game-controls button, .theme-green-yellow .game-controls select {
+  border: 1px solid var(--green-yellow-primary);
+}
+
+.theme-green-yellow .game-controls button:hover, .theme-green-yellow .game-controls select:hover {
+  background-color: rgba(0, 255, 0, 0.3);
+  box-shadow: 0 0 10px var(--green-yellow-primary);
+}
+
+.theme-purple-orange .game-controls button, .theme-purple-orange .game-controls select {
+  border: 1px solid var(--purple-orange-primary);
+}
+
+.theme-purple-orange .game-controls button:hover, .theme-purple-orange .game-controls select:hover {
+  background-color: rgba(153, 0, 255, 0.3);
+  box-shadow: 0 0 10px var(--purple-orange-primary);
+}
+
+.game-controls label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Game Over Overlay */
+.game-over-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 100;
+}
+
+.game-over-message {
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  max-width: 80%;
+}
+
+.theme-blue-pink .game-over-message {
+  background-color: rgba(0, 255, 255, 0.2);
+  border: 2px solid var(--blue-pink-primary);
+  box-shadow: 0 0 20px var(--blue-pink-primary);
+}
+
+.theme-green-yellow .game-over-message {
+  background-color: rgba(0, 255, 0, 0.2);
+  border: 2px solid var(--green-yellow-primary);
+  box-shadow: 0 0 20px var(--green-yellow-primary);
+}
+
+.theme-purple-orange .game-over-message {
+  background-color: rgba(153, 0, 255, 0.2);
+  border: 2px solid var(--purple-orange-primary);
+  box-shadow: 0 0 20px var(--purple-orange-primary);
+}
+
+.game-over-message button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  transition: all 0.2s ease;
+}
+
+.theme-blue-pink .game-over-message button {
+  border: 1px solid var(--blue-pink-primary);
+}
+
+.theme-blue-pink .game-over-message button:hover {
+  background-color: rgba(0, 255, 255, 0.3);
+  box-shadow: 0 0 10px var(--blue-pink-primary);
+}
+
+.theme-green-yellow .game-over-message button {
+  border: 1px solid var(--green-yellow-primary);
+}
+
+.theme-green-yellow .game-over-message button:hover {
+  background-color: rgba(0, 255, 0, 0.3);
+  box-shadow: 0 0 10px var(--green-yellow-primary);
+}
+
+.theme-purple-orange .game-over-message button {
+  border: 1px solid var(--purple-orange-primary);
+}
+
+.theme-purple-orange .game-over-message button:hover {
+  background-color: rgba(153, 0, 255, 0.3);
+  box-shadow: 0 0 10px var(--purple-orange-primary);
+}
+
+/* Multiplayer Notification */
+.multiplayer-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 15px;
+  border-radius: 5px;
+  z-index: 1000;
+  animation: notification-slide 0.5s ease, notification-fade 5s forwards;
+}
+
+.theme-blue-pink .multiplayer-notification {
+  background-color: rgba(0, 0, 0, 0.8);
+  border: 1px solid var(--blue-pink-primary);
+  box-shadow: 0 0 10px var(--blue-pink-primary);
+}
+
+.theme-green-yellow .multiplayer-notification {
+  background-color: rgba(0, 0, 0, 0.8);
+  border: 1px solid var(--green-yellow-primary);
+  box-shadow: 0 0 10px var(--green-yellow-primary);
+}
+
+.theme-purple-orange .multiplayer-notification {
+  background-color: rgba(0, 0, 0, 0.8);
+  border: 1px solid var(--purple-orange-primary);
+  box-shadow: 0 0 10px var(--purple-orange-primary);
+}
+
+@keyframes notification-slide {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes notification-fade {
+  0%, 80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Promotion Dialog */
+.promotion-dialog {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  border-radius: 10px;
+  z-index: 200;
+}
+
+.theme-blue-pink .promotion-dialog {
+  background-color: rgba(0, 0, 0, 0.9);
+  border: 2px solid var(--blue-pink-primary);
+  box-shadow: 0 0 20px var(--blue-pink-primary);
+}
+
+.theme-green-yellow .promotion-dialog {
+  background-color: rgba(0, 0, 0, 0.9);
+  border: 2px solid var(--green-yellow-primary);
+  box-shadow: 0 0 20px var(--green-yellow-primary);
+}
+
+.theme-purple-orange .promotion-dialog {
+  background-color: rgba(0, 0, 0, 0.9);
+  border: 2px solid var(--purple-orange-primary);
+  box-shadow: 0 0 20px var(--purple-orange-primary);
+}
+
+.promotion-dialog h3 {
+  text-align: center;
+  margin-top: 0;
+}
+
+.promotion-options {
+  display: flex;
+  gap: 15px;
+}
+
+.promotion-option {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.2s ease;
+}
+
+.theme-blue-pink .promotion-option {
+  background-color: rgba(0, 255, 255, 0.1);
+  border: 1px solid var(--blue-pink-primary);
+}
+
+.theme-blue-pink .promotion-option:hover {
+  background-color: rgba(0, 255, 255, 0.3);
+  box-shadow: 0 0 10px var(--blue-pink-primary);
+}
+
+.theme-green-yellow .promotion-option {
+  background-color: rgba(0, 255, 0, 0.1);
+  border: 1px solid var(--green-yellow-primary);
+}
+
+.theme-green-yellow .promotion-option:hover {
+  background-color: rgba(0, 255, 0, 0.3);
+  box-shadow: 0 0 10px var(--green-yellow-primary);
+}
+
+.theme-purple-orange .promotion-option {
+  background-color: rgba(153, 0, 255, 0.1);
+  border: 1px solid var(--purple-orange-primary);
+}
+
+.theme-purple-orange .promotion-option:hover {
+  background-color: rgba(153, 0, 255, 0.3);
+  box-shadow: 0 0 10px var(--purple-orange-primary);
+}
+
+/* User Authentication */
+.auth-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+}
+
+.auth-dialog {
+  padding: 30px;
+  border-radius: 10px;
+  width: 300px;
+}
+
+.theme-blue-pink .auth-dialog {
+  background-color: var(--blue-pink-background);
+  border: 2px solid var(--blue-pink-primary);
+  box-shadow: 0 0 30px var(--blue-pink-primary);
+}
+
+.theme-green-yellow .auth-dialog {
+  background-color: var(--green-yellow-background);
+  border: 2px solid var(--green-yellow-primary);
+  box-shadow: 0 0 30px var(--green-yellow-primary);
+}
+
+.theme-purple-orange .auth-dialog {
+  background-color: var(--purple-orange-background);
+  border: 2px solid var(--purple-orange-primary);
+  box-shadow: 0 0 30px var(--purple-orange-primary);
+}
+
+.auth-dialog h2 {
+  text-align: center;
+  margin-top: 0;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.auth-form input {
+  padding: 10px;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: none;
+}
+
+.theme-blue-pink .auth-form input {
+  border: 1px solid var(--blue-pink-primary);
+}
+
+.theme-blue-pink .auth-form input:focus {
+  box-shadow: 0 0 10px var(--blue-pink-primary);
+}
+
+.theme-green-yellow .auth-form input {
+  border: 1px solid var(--green-yellow-primary);
+}
+
+.theme-green-yellow .auth-form input:focus {
+  box-shadow: 0 0 10px var(--green-yellow-primary);
+}
+
+.theme-purple-orange .auth-form input {
+  border: 1px solid var(--purple-orange-primary);
+}
+
+.theme-purple-orange .auth-form input:focus {
+  box-shadow: 0 0 10px var(--purple-orange-primary);
+}
+
+.auth-form button {
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  transition: all 0.2s ease;
+  margin-top: 10px;
+}
+
+.theme-blue-pink .auth-form button {
+  border: 1px solid var(--blue-pink-primary);
+}
+
+.theme-blue-pink .auth-form button:hover {
+  background-color: rgba(0, 255, 255, 0.3);
+  box-shadow: 0 0 10px var(--blue-pink-primary);
+}
+
+.theme-green-yellow .auth-form button {
+  border: 1px solid var(--green-yellow-primary);
+}
+
+.theme-green-yellow .auth-form button:hover {
+  background-color: rgba(0, 255, 0, 0.3);
+  box-shadow: 0 0 10px var(--green-yellow-primary);
+}
+
+.theme-purple-orange .auth-form button {
+  border: 1px solid var(--purple-orange-primary);
+}
+
+.theme-purple-orange .auth-form button:hover {
+  background-color: rgba(153, 0, 255, 0.3);
+  box-shadow: 0 0 10px var(--purple-orange-primary);
+}
+
+.auth-toggle {
+  text-align: center;
+  margin-top: 20px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.theme-blue-pink .auth-toggle:hover {
+  color: var(--blue-pink-primary);
+  text-shadow: 0 0 5px var(--blue-pink-primary);
+}
+
+.theme-green-yellow .auth-toggle:hover {
+  color: var(--green-yellow-primary);
+  text-shadow: 0 0 5px var(--green-yellow-primary);
+}
+
+.theme-purple-orange .auth-toggle:hover {
+  color: var(--purple-orange-primary);
+  text-shadow: 0 0 5px var(--purple-orange-primary);
+}
+
+/* User Profile */
+.user-profile {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  z-index: 50;
+}
+
+.theme-blue-pink .user-profile {
+  background-color: rgba(0, 0, 0, 0.7);
+  border: 1px solid var(--blue-pink-primary);
+}
+
+.theme-green-yellow .user-profile {
+  background-color: rgba(0, 0, 0, 0.7);
+  border: 1px solid var(--green-yellow-primary);
+}
+
+.theme-purple-orange .user-profile {
+  background-color: rgba(0, 0, 0, 0.7);
+  border: 1px solid var(--purple-orange-primary);
+}
+
+.user-profile-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.user-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.user-stats {
+  margin-top: 10px;
+  font-size: 0.8rem;
+}
+
+.user-stats div {
+  margin-bottom: 5px;
+}
+
+.user-profile-actions {
+  margin-top: 10px;
+}
+
+.user-profile-actions button {
+  width: 100%;
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  transition: all 0.2s ease;
+  margin-bottom: 5px;
+}
+
+.theme-blue-pink .user-profile-actions button {
+  border: 1px solid var(--blue-pink-primary);
+}
+
+.theme-blue-pink .user-profile-actions button:hover {
+  background-color: rgba(0, 255, 255, 0.3);
+  box-shadow: 0 0 5px var(--blue-pink-primary);
+}
+
+.theme-green-yellow .user-profile-actions button {
+  border: 1px solid var(--green-yellow-primary);
+}
+
+.theme-green-yellow .user-profile-actions button:hover {
+  background-color: rgba(0, 255, 0, 0.3);
+  box-shadow: 0 0 5px var(--green-yellow-primary);
+}
+
+.theme-purple-orange .user-profile-actions button {
+  border: 1px solid var(--purple-orange-primary);
+}
+
+.theme-purple-orange .user-profile-actions button:hover {
+  background-color: rgba(153, 0, 255, 0.3);
+  box-shadow: 0 0 5px var(--purple-orange-primary);
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .chess-game-container {
+    padding: 10px;
+  }
+  
+  .game-status {
+    font-size: 1rem;
+  }
+  
+  .game-controls {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .game-controls label {
+    justify-content: space-between;
+  }
+  
+  .piece {
+    font-size: 2rem;
+  }
+  
+  .captured-pieces {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .piece {
+    font-size: 1.5rem;
+  }
+  
+  .square.possible-move::before {
+    width: 20%;
+    height: 20%;
+  }
+}
+
+/* Animation for piece movement */
+@keyframes piece-move {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.piece-moving {
+  animation: piece-move 0.3s ease;
+}
+
+/* Animation for piece capture */
+@keyframes piece-capture {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+.piece-captured {
+  animation: piece-capture 0.3s ease forwards;
+}
+
+/* Animation for board hover effect */
+.square:hover {
+  cursor: pointer;
+}
+
+.theme-blue-pink .square:hover {
+  box-shadow: inset 0 0 10px rgba(0, 255, 255, 0.3);
+}
+
+.theme-green-yellow .square:hover {
+  box-shadow: inset 0 0 10px rgba(0, 255, 0, 0.3);
+}
+
+.theme-purple-orange .square:hover {
+  box-shadow: inset 0 0 10px rgba(153, 0, 255, 0.3);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.theme-blue-pink ::-webkit-scrollbar-thumb {
+  background: var(--blue-pink-primary);
+  border-radius: 4px;
+}
+
+.theme-green-yellow ::-webkit-scrollbar-thumb {
+  background: var(--green-yellow-primary);
+  border-radius: 4px;
+}
+
+.theme-purple-orange ::-webkit-scrollbar-thumb {
+  background: var(--purple-orange-primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  filter: brightness(120%);
+}
+
+/* Focus styles for accessibility */
+button:focus, select:focus, input:focus {
+  outline: none;
+}
+
+.theme-blue-pink button:focus, .theme-blue-pink select:focus, .theme-blue-pink input:focus {
+  box-shadow: 0 0 0 2px white, 0 0 0 4px var(--blue-pink-primary);
+}
+
+.theme-green-yellow button:focus, .theme-green-yellow select:focus, .theme-green-yellow input:focus {
+  box-shadow: 0 0 0 2px white, 0 0 0 4px var(--green-yellow-primary);
+}
+
+.theme-purple-orange button:focus, .theme-purple-orange select:focus, .theme-purple-orange input:focus {
+  box-shadow: 0 0 0 2px white, 0 0 0 4px var(--purple-orange-primary);
+}
