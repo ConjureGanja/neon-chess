@@ -10,7 +10,7 @@ This guide will help you integrate the Neon Chess game into your WordPress site,
 
 1. **Download the plugin files**:
    - Download the `neon-chess.zip` file from the plugin page
-   - Alternatively, clone the GitHub repository: `git clone https://github.com/yourusername/neon-chess.git`
+   - Alternatively, clone the GitHub repository: `git clone https://github.com/ConjureGanja/neon-chess.git`
 
 2. **Upload to WordPress**:
    - Log in to your WordPress admin dashboard
